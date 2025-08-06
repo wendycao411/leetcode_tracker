@@ -22,33 +22,36 @@ datePrompt.addAction("Next");
 await datePrompt.present();
 const FIX_DATE = datePrompt.textFieldValue(0);
 
-// ========== SHOW CURRENT COUNT ==========
+// ========== PROMPT FOR NEW COUNT ==========
 const currentCount = log[FIX_DATE] ?? 0;
 
-const adjustPrompt = new Alert();
-adjustPrompt.title = `Adjust Count for ${FIX_DATE}`;
-adjustPrompt.message = `Current count: ${currentCount}`;
-adjustPrompt.addAction("＋ Add 1");
-if (currentCount > 0) adjustPrompt.addAction("－ Subtract 1");
-adjustPrompt.addCancelAction("Cancel");
+const countPrompt = new Alert();
+countPrompt.title = `Set Count for ${FIX_DATE}`;
+countPrompt.message = `Current count: ${currentCount}`;
+countPrompt.addTextField("New value", String(currentCount));
+countPrompt.addAction("Save");
+countPrompt.addCancelAction("Cancel");
 
-const response = await adjustPrompt.present();
+const result = await countPrompt.present();
+if (result === -1) Script.complete(); // Cancelled
 
-if (response === 0) {
-  log[FIX_DATE] = currentCount + 1;
-} else if (response === 1 && currentCount > 0) {
-  log[FIX_DATE] = currentCount - 1;
+const newValue = parseInt(countPrompt.textFieldValue(0));
+if (!isNaN(newValue) && newValue >= 0) {
+  log[FIX_DATE] = newValue;
+
+  // ========== SAVE LOG ==========
+  fm.writeString(filePath, JSON.stringify(log, null, 2));
+
+  // ========== CONFIRM ==========
+  const confirm = new Alert();
+  confirm.title = "Log Updated";
+  confirm.message = `${FIX_DATE}: ${log[FIX_DATE]}`;
+  await confirm.present();
 } else {
-  Script.complete(); // User cancelled or no action needed
+  const error = new Alert();
+  error.title = "Invalid Input";
+  error.message = "Please enter a valid non-negative number.";
+  await error.present();
 }
-
-// ========== SAVE LOG ==========
-fm.writeString(filePath, JSON.stringify(log, null, 2));
-
-// ========== CONFIRM ==========
-const confirm = new Alert();
-confirm.title = "Log Updated";
-confirm.message = `${FIX_DATE}: ${log[FIX_DATE]}`;
-await confirm.present();
 
 Script.complete();

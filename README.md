@@ -18,17 +18,18 @@ this is the main tracking tool:
 
 ### Fixer (`fixer.js`)
 
-edit any date manually:
+edit any day manually:
 
-- use buttons to increment or decrement past counts
+- type in a specific date (YYYY-MM-DD)
+- set that day's count to any non-negative number
 - perfect for adjusting missed logs or syncing with real-world progress
 
 ## Getting Started
 
-1. Download Scriptable from the App Store
-2. Add `main.js` and `fixer.js` to Scriptable
-3. Long press the home page.
-4. Select `Edit`
-5. Select `Add Widget`
-6. Choose `Scriptable`
-7. Tap the widget to log your progress, use the fixer to correct past days :DD
+1. download Scriptable from the App Store
+2. add `main.js` and `fixer.js` to Scriptable
+3. long press the home page
+4. select `Edit`
+5. select `Add Widget`
+6. choose `Scriptable`
+7. tap the widget to log your progress, use the fixer to correct past days :DD
