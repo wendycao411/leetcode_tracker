@@ -46,6 +46,7 @@ if (!isNaN(newValue) && newValue >= 0) {
   const confirm = new Alert();
   confirm.title = "Log Updated";
   confirm.message = `${FIX_DATE}: ${log[FIX_DATE]}`;
+  confirm.addAction("Done");
   await confirm.present();
 } else {
   const error = new Alert();
