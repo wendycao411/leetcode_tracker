@@ -24,6 +24,10 @@ edit any day manually:
 - set that day's count to any non-negative number
 - perfect for adjusting missed logs or syncing with real-world progress
 
+### Debugger ('debugger.js')
+
+view your past logs! we can't easily access the log files in scriptable, so this displays your log data in a clear table format.
+
 ## Getting Started
 
 1. download Scriptable from the App Store
