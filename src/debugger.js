@@ -5,13 +5,18 @@ if (fm.fileExists(filePath)) {
   const content = fm.readString(filePath);
   const log = JSON.parse(content);
 
-  // Sort keys chronologically and build a new object
+  // Sort keys chronologically (ascending)
+  const sortedKeys = Object.keys(log).sort((a, b) => {
+    return new Date(a) - new Date(b);
+  });
+
+  console.log("Sorted keys:", sortedKeys);
+
+  // Build new sorted object
   const sortedLog = {};
-  Object.keys(log)
-    .sort((a, b) => new Date(a) - new Date(b))
-    .forEach(key => {
-      sortedLog[key] = log[key];
-    });
+  sortedKeys.forEach(key => {
+    sortedLog[key] = log[key];
+  });
 
   console.log(sortedLog);
   QuickLook.present(sortedLog);
